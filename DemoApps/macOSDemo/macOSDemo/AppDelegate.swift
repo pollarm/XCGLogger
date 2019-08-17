@@ -10,7 +10,7 @@
 import Cocoa
 import XCGLogger
 
-let appDelegate = NSApplication.shared().delegate as! AppDelegate
+let appDelegate = NSApplication.shared.delegate as! AppDelegate
 let log: XCGLogger = {
     // Setup XCGLogger (Advanced/Recommended Usage)
     // Create a logger object with no destinations
@@ -28,25 +28,15 @@ let log: XCGLogger = {
     systemDestination.showFileName = true
     systemDestination.showLineNumber = true
 
-    // Add colour to the console destination.
-    // - Note: You need the XcodeColors Plug-in https://github.com/robbiehanson/XcodeColors installed in Xcode
-    // - to see colours in the Xcode console. Plug-ins have been disabled in Xcode 8, so offically you can not see
-    // - coloured logs in Xcode 8.
-    //let xcodeColorsLogFormatter: XcodeColorsLogFormatter = XcodeColorsLogFormatter()
-    //xcodeColorsLogFormatter.colorize(level: .verbose, with: .lightGrey)
-    //xcodeColorsLogFormatter.colorize(level: .debug, with: .darkGrey)
-    //xcodeColorsLogFormatter.colorize(level: .info, with: .blue)
-    //xcodeColorsLogFormatter.colorize(level: .warning, with: .orange)
-    //xcodeColorsLogFormatter.colorize(level: .error, with: .red)
-    //xcodeColorsLogFormatter.colorize(level: .severe, with: .white, on: .red)
-    //systemDestination.formatters = [xcodeColorsLogFormatter]
-
     // Add the destination to the logger
     log.add(destination: systemDestination)
 
     // Create a file log destination
-    let logPath: String = ("/tmp/XCGLogger_macOSDemo.log" as NSString).expandingTildeInPath
-    let autoRotatingFileDestination = AutoRotatingFileDestination(writeToFile: logPath, identifier: "advancedLogger.fileDestination", shouldAppend: true)
+    let logPath: String = "/tmp/XCGLogger_macOSDemo.log"
+    let autoRotatingFileDestination = AutoRotatingFileDestination(writeToFile: logPath, identifier: "advancedLogger.fileDestination", shouldAppend: true,
+                                                                  maxFileSize: 1024 * 5, // 5k, not a good size for production (default is 1 megabyte)
+                                                                  maxTimeInterval: 60, // 1 minute, also not good for production (default is 10 minutes)
+                                                                  targetMaxLogFiles: 20) // Default is 10, max is 255
 
     // Optionally set some configuration options
     autoRotatingFileDestination.outputLevel = .debug
@@ -57,9 +47,6 @@ let log: XCGLogger = {
     autoRotatingFileDestination.showFileName = true
     autoRotatingFileDestination.showLineNumber = true
     autoRotatingFileDestination.showDate = true
-    autoRotatingFileDestination.targetMaxFileSize = 1024 * 5 // 5k, not a good size for production (default is 1 megabyte)
-    autoRotatingFileDestination.targetMaxTimeInterval = 60 // 1 minute, also not good for production (default is 10 minutes)
-    autoRotatingFileDestination.targetMaxLogFiles = 10 // probably good for this demo and production, (default is 10, max is 255)
 
     // Process this destination in the background
     autoRotatingFileDestination.logQueue = XCGLogger.logQueue
@@ -69,9 +56,12 @@ let log: XCGLogger = {
     ansiColorLogFormatter.colorize(level: .verbose, with: .colorIndex(number: 244), options: [.faint])
     ansiColorLogFormatter.colorize(level: .debug, with: .black)
     ansiColorLogFormatter.colorize(level: .info, with: .blue, options: [.underline])
+    ansiColorLogFormatter.colorize(level: .notice, with: .green, options: [.italic])
     ansiColorLogFormatter.colorize(level: .warning, with: .red, options: [.faint])
     ansiColorLogFormatter.colorize(level: .error, with: .red, options: [.bold])
     ansiColorLogFormatter.colorize(level: .severe, with: .white, on: .red)
+    ansiColorLogFormatter.colorize(level: .alert, with: .white, on: .red, options: [.bold])
+    ansiColorLogFormatter.colorize(level: .emergency, with: .white, on: .red, options: [.bold, .blink])
     autoRotatingFileDestination.formatters = [ansiColorLogFormatter]
 
     // Add the destination to the logger

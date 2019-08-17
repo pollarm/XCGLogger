@@ -29,26 +29,14 @@ let log: XCGLogger = {
             ansiColorLogFormatter.colorize(level: .verbose, with: .colorIndex(number: 244), options: [.faint])
             ansiColorLogFormatter.colorize(level: .debug, with: .black)
             ansiColorLogFormatter.colorize(level: .info, with: .blue, options: [.underline])
+            ansiColorLogFormatter.colorize(level: .notice, with: .green, options: [.italic])
             ansiColorLogFormatter.colorize(level: .warning, with: .red, options: [.faint])
             ansiColorLogFormatter.colorize(level: .error, with: .red, options: [.bold])
             ansiColorLogFormatter.colorize(level: .severe, with: .white, on: .red)
+            ansiColorLogFormatter.colorize(level: .alert, with: .white, on: .red, options: [.bold])
+            ansiColorLogFormatter.colorize(level: .emergency, with: .white, on: .red, options: [.bold, .blink])
             fileDestination.formatters = [ansiColorLogFormatter]
         }
-
-        // Add colour to the console destination.
-        // - Note: You need the XcodeColors Plug-in https://github.com/robbiehanson/XcodeColors installed in Xcode
-        // - to see colours in the Xcode console. Plug-ins have been disabled in Xcode 8, so offically you can not see
-        // - coloured logs in Xcode 8.
-        //if let consoleDestination: ConsoleDestination = log.destination(withIdentifier: XCGLogger.Constants.baseConsoleDestinationIdentifier) as? ConsoleDestination {
-        //    let xcodeColorsLogFormatter: XcodeColorsLogFormatter = XcodeColorsLogFormatter()
-        //    xcodeColorsLogFormatter.colorize(level: .verbose, with: .lightGrey)
-        //    xcodeColorsLogFormatter.colorize(level: .debug, with: .darkGrey)
-        //    xcodeColorsLogFormatter.colorize(level: .info, with: .blue)
-        //    xcodeColorsLogFormatter.colorize(level: .warning, with: .orange)
-        //    xcodeColorsLogFormatter.colorize(level: .error, with: .red)
-        //    xcodeColorsLogFormatter.colorize(level: .severe, with: .white, on: .red)
-        //    consoleDestination.formatters = [xcodeColorsLogFormatter]
-        //}
     #endif
 
     return log
@@ -69,7 +57,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return urls[urls.endIndex - 1]
     }()
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         // Display initial app info
         _ = log

@@ -1,5 +1,13 @@
-#Change Log
+# Change Log
 
+* **Version 7.0.0**: *(2019/03/26)* - Updated for Xcode 10.2/Swift 5.0, adds additional log levels: notice, alert, and emergency
+* **Version 6.1.0**: *(2018/09/16)* - Fix for Xcode 10.0 warnings/Swift 4.2, other minor tweaks
+* **Version 6.0.4**: *(2018/06/11)* - Fix for Xcode 9.3 warnings/Swift 4.1 (thanks @ijaureguialzo), and other fixes
+* **Version 6.0.2**: *(2017/11/30)* - Fix for Xcode warning about deprecated .characters (thanks @WeidongGu)
+* **Version 6.0.1**: *(2017/09/30)* - Set the SWIFT_VERSION value in the Podspec (via `pod_target_xcconfig`)
+* **Version 6.0.0**: *(2017/09/28)* - Updated for Xcode 9 and Swift 4.0
+* **Version 5.0.5**: *(2017/09/28)* - Fixed a warning in Xcode 9 when still using Swift 3
+* **Version 5.0.4**: *(2017/09/27)* - Fixed some issues in the AutoRotatingFileDestination class, added fileAttribute options, other fixes
 * **Version 5.0.1**: *(2017/04/06)* - Updated for Xcode 8.3/Swift 3.1. Added a new fancy AutoRotatingFileDestination, that will automatically archive your log files based on size, and/or time interval. Check out the macOS demo app for a usage example. All new tags on the branches for versioning to be compatible with the Swift Package Manager. If you're referencing tags such as `Version_4.0.0`, please convert to the new equivalent tag `4.0.0`.
 * **Version 5.0.0**: *(2017/04/01)* - Invalid version, due to a merged PR that included stray tags. 
 * **Version 4.1.0**: *(2017/04/01)* - Invalid version, due to a merged PR that included stray tags.

@@ -79,7 +79,7 @@ open class XcodeColorsLogFormatter: LogFormatterProtocol, CustomDebugStringConve
 
 #if os(macOS)
         public init(color: NSColor) {
-            if let colorSpaceCorrected = color.usingColorSpaceName(NSCalibratedRGBColorSpace) {
+            if let colorSpaceCorrected = color.usingColorSpaceName(NSColorSpaceName.calibratedRGB) {
                 self.red = Int(colorSpaceCorrected.redComponent * 255)
                 self.green = Int(colorSpaceCorrected.greenComponent * 255)
                 self.blue = Int(colorSpaceCorrected.blueComponent * 255)
@@ -247,7 +247,7 @@ open class XcodeColorsLogFormatter: LogFormatterProtocol, CustomDebugStringConve
     open var debugDescription: String {
         get {
             var description: String = "\(extractTypeName(self)): "
-            for level in XCGLogger.Level.all {
+            for level in XCGLogger.Level.allCases {
                 description += "\n\t- \(level) > \(descriptionStrings[level] ?? "None")"
             }
 

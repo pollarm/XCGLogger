@@ -64,7 +64,7 @@ open class TestDestination: BaseQueuedDestination {
         }
     }
 
-    /// Reset our expections etc for additional tests
+    /// Reset our expectations etc for additional tests
     ///
     /// - Parameters:   Nothing
     ///
@@ -97,7 +97,7 @@ open class TestDestination: BaseQueuedDestination {
             
             applyFormatters(logDetails: &logDetails, message: &message)
 
-            let index = expectedLogMessages.index(of: message)
+            let index = expectedLogMessages.firstIndex(of: message)
             if let index = index {
                 expectedLogMessages.remove(at: index)
             }
